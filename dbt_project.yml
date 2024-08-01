@@ -1,0 +1,25 @@
+name: 'learndbt'
+version: '1.0'
+profile: 'learndbt'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+# Configuração do repositório
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# Configuração do path dos modelos
+models:
+  learndbt:
+    +materialized: view
+    dim:
+      +materialized: table
+    src:
+      +materialized: ephemeral
