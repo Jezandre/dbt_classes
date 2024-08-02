@@ -8,7 +8,9 @@
 WITH src_reviews AS (
  SELECT * FROM {{ ref('src_reviews') }}
 )
-SELECT * FROM src_reviews
+SELECT 
+{{ dbt_utils.generate_surrogate_key(['listing_id', 'review_date', 'reviewer_name', 'review_text']) }} as review_id,
+* FROM src_reviews
 WHERE REVIEW_TEXT is not null
 {% if is_incremental() %}
  AND review_date > (select max(review_date) from {{ this }})
